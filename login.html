@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NAYAN - লগইন</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f8f9fa; }
+        .login-container { max-width: 450px; margin: 80px auto; padding: 40px; border: 1px solid #ddd; border-radius: 12px; background: white; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="login-container">
+        <h2 class="text-center mb-4">NAYAN-এ লগইন করুন</h2>
+        
+        <form id="loginForm">
+            <div class="mb-4">
+                <label for="role" class="form-label fw-bold">আপনি কে?</label>
+                <select class="form-select" id="role" required>
+                    <option value="">রোল সিলেক্ট করুন...</option>
+                    <option value="user">ইউজার (কারিগর হায়ার করতে চাই)</option>
+                    <option value="labour">কারিগর (কাজ করতে চাই)</option>
+                    <option value="admin">অ্যাডমিন</option>
+                </select>
+            </div>
+
+            <div class="mb-4">
+                <label for="username" class="form-label fw-bold">ইউজার আইডি / ইমেইল / ফোন</label>
+                <input type="text" class="form-control" id="username" placeholder="উদাহরণ: samratmondal" required>
+            </div>
+
+            <div class="mb-4">
+                <label for="password" class="form-label fw-bold">পাসওয়ার্ড</label>
+                <input type="password" class="form-control" id="password" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100 py-3 fw-bold">লগইন করুন</button>
+        </form>
+
+        <p class="text-center mt-4">
+            নতুন ইউজার? <a href="signup.html" class="text-primary">সাইন আপ করুন</a>
+        </p>
+    </div>
+</div>
+
+<script>
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const role = document.getElementById('role').value;
+        const username = document.getElementById('username').value.trim();
+        const password = document.getElementById('password').value;
+
+        // অ্যাডমিন চেক
+        if (role === 'admin') {
+            if (username === 'samratmondal' && password === '21samyaya**#') {
+                sessionStorage.setItem('isLoggedIn', 'true');
+                sessionStorage.setItem('userRole', 'admin');
+                alert('স্বাগতম অ্যাডমিন! লগইন সফল হয়েছে।');
+                window.location.href = 'dashboard.html';
+                return;
+            } else {
+                alert('ভুল অ্যাডমিন আইডি বা পাসওয়ার্ড!');
+                return;
+            }
+        }
+
+        // ইউজার বা কারিগরের জন্য (সিমুলেটেড চেক)
+        if (role && username && password) {
+            // লগইন সফল → sessionStorage-এ সেভ করা
+            sessionStorage.setItem('isLoggedIn', 'true');
+            sessionStorage.setItem('userRole', role);
+            sessionStorage.setItem('username', username);
+
+            alert(`${role === 'user' ? 'ইউজার' : 'কারিগর'} হিসেবে লগইন সফল হয়েছে!`);
+
+            // রোল অনুযায়ী রিডাইরেক্ট
+            if (role === 'user') {
+                window.location.href = 'categories.html';
+            } else if (role === 'labour') {
+                window.location.href = 'labour_profile.html';
+            }
+        } else {
+            alert('সব ফিল্ড পূরণ করুন!');
+        }
+    });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NAYAN - Labour Profile</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f8f9fa; }
+        .profile-container { max-width: 800px; margin: 50px auto; padding: 30px; border: 1px solid #ddd; border-radius: 10px; background: white; }
+        .profile-img { width: 150px; height: 150px; object-fit: cover; border-radius: 50%; }
+        .subscription-section { margin-top: 40px; }
+        .alert { margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+<div class="container profile-container">
+    <h2 class="text-center mb-4">Your Labour Profile</h2>
+    
+    <!-- Simulated Profile Details (In real app, fetch from backend) -->
+    <div class="text-center mb-4">
+        <img src="https://via.placeholder.com/150" alt="Your Photo" class="profile-img">
+    </div>
+    
+    <form id="profileForm">
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Name</label>
+                <input type="text" class="form-control" value="John Doe" readonly>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Age</label>
+                <input type="number" class="form-control" value="35" readonly>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Address</label>
+            <input type="text" class="form-control" value="123 Main St, Kolkata" readonly>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Experience (Years)</label>
+                <input type="number" class="form-control" value="10" readonly>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Sector</label>
+                <input type="text" class="form-control" value="Plumber" readonly>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Working Area</label>
+            <input type="text" class="form-control" value="Kolkata, Howrah" readonly>
+        </div>
+        
+        <!-- Editable Fields -->
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Fee (INR/hour)</label>
+                <input type="number" class="form-control" id="fee" value="500">
+                <button type="button" class="btn btn-secondary mt-2 w-100" onclick="updateFee()">Update Fee</button>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Mobile Number</label>
+                <input type="tel" class="form-control" id="mobile" value="+91-9876543210">
+                <button type="button" class="btn btn-secondary mt-2 w-100" onclick="updateMobile()">Update Mobile</button>
+            </div>
+        </div>
+    </form>
+    
+    <!-- Subscription Section -->
+    <div class="subscription-section">
+        <h4>Subscription Management</h4>
+        <p>Current Status: Free (Subscription will be required after 3 months. Fee: 499 INR)</p>
+        <button class="btn btn-success w-100 mb-2" onclick="paySubscription()">Pay Subscription Now</button>
+        <button class="btn btn-warning w-100" onclick="cancelSubscription()">Cancel Subscription</button>
+    </div>
+    
+    <!-- Delete Profile -->
+    <div class="mt-4 text-center">
+        <button class="btn btn-danger" onclick="deleteProfile()">Delete My Profile</button>
+    </div>
+    
+    <div id="alertContainer" class="alert d-none"></div>
+</div>
+
+<script>
+    function showAlert(message, type = 'success') {
+        const alertDiv = document.getElementById('alertContainer');
+        alertDiv.className = `alert alert-${type}`;
+        alertDiv.textContent = message;
+        alertDiv.classList.remove('d-none');
+        setTimeout(() => alertDiv.classList.add('d-none'), 3000);
+    }
+
+    function updateFee() {
+        const fee = document.getElementById('fee').value;
+        if (fee && fee > 0) {
+            showAlert(`Fee updated to ${fee} INR! (Simulated - Update in backend.)`);
+        } else {
+            showAlert('Please enter a valid fee!', 'danger');
+        }
+    }
+
+    function updateMobile() {
+        const mobile = document.getElementById('mobile').value;
+        if (mobile) {
+            showAlert(`Mobile number updated to ${mobile}! (Simulated - Send OTP for verification in real app.)`);
+        } else {
+            showAlert('Please enter a valid mobile number!', 'danger');
+        }
+    }
+
+    function paySubscription() {
+        // Simulate payment (Integrate Razorpay/Stripe in real app)
+        showAlert('Subscription payment initiated! (Redirect to payment gateway in real app.)');
+    }
+
+    function cancelSubscription() {
+        if (confirm('Are you sure you want to cancel subscription?')) {
+            showAlert('Subscription cancelled! (Update status in backend.)', 'warning');
+        }
+    }
+
+    function deleteProfile() {
+        if (confirm('Are you sure you want to delete your profile? This action cannot be undone.')) {
+            showAlert('Profile deleted! (Simulated - Remove from database and redirect to home.)', 'danger');
+            setTimeout(() => window.location.href = 'index.html', 2000);
+        }
+    }
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
